@@ -9,7 +9,7 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
 
     full_name = serializers.CharField(source='get_full_name', read_only=True)
-    links = serializers.SerializerMethodField('get_links')
+    links = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -25,13 +25,13 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 
-class SprintSerializer(serializer.ModelSerializer):
+class SprintSerializer(serializers.ModelSerializer):
 
-    links = serializers.SerializerMethodField('get_links')
+    links = serializers.SerializerMethodField()
 
     class Meta:
         model = Sprint
-        fields = ('id', 'name', 'description', 'end', 'links')
+        fields = ('id', 'name', 'description', 'end', 'links',)
 
     def get_links(self, obj):
         request = self.context['request']
@@ -41,12 +41,12 @@ class SprintSerializer(serializer.ModelSerializer):
         }
 
 
-class TaskSerializer(serializer.ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
 
-    status_display = serializers.SerializerMethodField('get_status_display')
+    status_display = serializers.SerializerMethodField()
     assigned = serializers.SlugRelatedField(
-                slug_field=User.USERNAME_FIELD, required=False)
-    links = serializers.SerializerMethodField('get_links')
+                slug_field=User.USERNAME_FIELD, required=False, queryset=User.objects.all())
+    links = serializers.SerializerMethodField()
 
     class Meta:
         model = Task

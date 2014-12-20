@@ -2,7 +2,7 @@ from rest_framework import viewsets, authentication, permissions
 from django.contrib.auth import get_user_model
 
 from .models import Sprint, Task
-from .serializers import SprintSerializer, TaskSerializer
+from .serializers import SprintSerializer, TaskSerializer, UserSerializer
 
 
 User = get_user_model()
@@ -39,7 +39,7 @@ class UserViewSet(DefaultsMixin, viewsets.ReadOnlyModelViewSet):
 
     lookup_field =  User.USERNAME_FIELD
     lookup_url_kwarg = User.USERNAME_FIELD
-    queryset = User.objects.orderby(User.USERNAME_FIELD)
+    queryset = User.objects.order_by(User.USERNAME_FIELD)
     serializer_class = UserSerializer
 
 
