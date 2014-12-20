@@ -68,7 +68,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
         if obj.sprint_id:
             links['sprint'] = reverse('sprint-detail',
-                kwargs = {'pk'.obj.sprint_id}, request=request)
+                kwargs = {'pk': obj.sprint_id}, request=request)
         if obj.assigned:
             links['assigned'] = reverse('user-detail',
                 kwargs = {User.USERNAME_FIELD: obj.assigned}, request=request)
